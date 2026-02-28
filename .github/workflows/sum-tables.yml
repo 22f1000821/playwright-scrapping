@@ -1,0 +1,29 @@
+name: Playwright Table Sum
+
+on:
+  workflow_dispatch: {}
+  push:
+    branches: ["main"]
+
+jobs:
+  run-sum:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # ✅ REQUIRED: step name must contain your email address
+      - name: 22f1000821@ds.study.iitm.ac.in - Install dependencies
+        run: npm ci || npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run scraper and print total
+        run: npm run sum:tables
